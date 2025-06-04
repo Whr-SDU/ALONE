@@ -18,7 +18,7 @@ which contains various parameter settings.
 The main logic files for training the ALONE algorithm are located in the ‘’‘ALONE/’‘’ directory.
 
 ### Baseline algorithm
-```Genet-main```,```merina-main```,```Netllm-main``` are the code directories for the Genet, Merina, and Netllm algorithms, respectively.
+```Genet-main```,```merina-master```,```Netllm-master```,```pensieve-master``` are the code directories for the Genet, Merina,  Netllm and pensieve algorithms, respectively.
 
 ### Network throughput traces
 Public bandwidth tracking is placed in this directory ```ALONE/data/```
