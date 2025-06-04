@@ -56,10 +56,6 @@ class Environment:
                 self.video_size[bitrate].append(int(VIDEO_BIT_RATE[bitrate] * 500))
                 #1000*2/8=250
 
-    # # --------------这是模拟直播的部分----------------------------------------------------
-    #     self.get_video_time = 0
-    #
-    # # -----------------------------------------------------------------------------------------
 
     def get_video_chunk(self, quality: int):
 
@@ -72,18 +68,6 @@ class Environment:
         # use the delivery opportunity in mahimahi
         delay = 0.0  # in ms
         video_chunk_counter_sent = 0  # in bytes
-        #
-        # # -----------------------这是模拟直播的部分--------------------------------------------------------------
-        # get_video_delay = 0
-        #
-        # if self.get_video_time >= self.chunk_len:
-        #     self.get_video_time = self.get_video_time - self.chunk_len
-        # else:
-        #     get_video_delay = self.chunk_len - self.get_video_time
-        #     self.get_video_time = 0
-        #
-        #
-        # # -------------------------------------------------------------------------------------------------------
 
 
         while True:  # download video chunk over mahimahi
@@ -130,12 +114,6 @@ class Environment:
         if not isinstance(self.trace_scheduler, TestScheduler):
             delay *= np.random.uniform(NOISE_LOW, NOISE_HIGH)
 
-        # # -------------------------------这是模拟直播的部分----------------------------------------------------
-        # zb_rebuf = np.maximum(delay + get_video_delay - self.buffer_size, 0.0)
-        # # update the buffer
-        # zb_buffer_delay = np.maximum(self.buffer_size - delay - get_video_delay, 0.0)
-        # # add in the new chunk
-        # # -----------------------------------------------------------------------------------------------------
 
         # rebuffer time
         rebuf = np.maximum(delay - self.buffer_size, 0.0)
@@ -181,9 +159,6 @@ class Environment:
         self.video_chunk_counter += 1
         video_chunk_remain = TOTAL_VIDEO_CHUNK - self.video_chunk_counter
 
-        # # -----------------------------这是模拟直播的部分----------------------------------------------------
-        # self.get_video_time = self.get_video_time + delay + sleep_time
-        # # -----------------------------------------------------------------------------------------------------
 
         end_of_video = False
         if self.video_chunk_counter >= TOTAL_VIDEO_CHUNK:
@@ -200,9 +175,6 @@ class Environment:
             self.mahimahi_ptr = self.mahimahi_start_ptr if  isinstance(self.trace_scheduler, TestScheduler) else np.random.randint(1, len(self.cooked_time))
             self.last_mahimahi_time = self.cooked_time[self.mahimahi_ptr - 1]
 
-# # ---------------------------------这是模拟直播的部分----------------------------------------------------
-#             self.get_video_time = 0
-# # -----------------------------------------------------------------------------------------------------
         next_video_chunk_sizes = []
         for i in range(len(VIDEO_BIT_RATE)):
             next_video_chunk_sizes.append(self.video_size[i][self.video_chunk_counter])
@@ -214,8 +186,5 @@ class Environment:
             video_chunk_size, \
             next_video_chunk_sizes, \
             end_of_video, \
-            video_chunk_remain, \
-            # get_video_delay, \
-            # zb_buffer_delay / MILLISECONDS_IN_SECOND, \
-            # zb_rebuf / MILLISECONDS_IN_SECOND, \
+            video_chunk_remain
 

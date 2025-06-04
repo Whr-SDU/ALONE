@@ -126,6 +126,7 @@ def main():
     )
     t_start_1 = time.time()
 
+    # # Stage One
     ger_model,entropy_weight = pensieve.train(
         args,
         train_scheduler,
@@ -141,8 +142,7 @@ def main():
         args.gener_2,
         )
 
-
-
+    # Stage two
     if  not args.master_train:
         data_list = []
         cluster_num_1 = 1
@@ -198,7 +198,7 @@ def main():
         for kk in range(zhonglei):
             ma_save_dir = master_save_dir + str(kk+1)
             master_train_trace_dir = output_base_dir + str(kk+1)
-            cmd = "python /home/ubuntu/Whr/EAS/ALONE/src/simulator/master_QoE_4G/ALONE/train_master_QoE.py " \
+            cmd = "python simulator/ALONE/train_master_QoE.py " \
                   "--total-epoch={total_epoch} " \
                   "--seed={seed} " \
                   "--save-dir={save_dir} " \
@@ -251,7 +251,7 @@ def main():
     if not args.master_train :
         time_start = time.time()
         save_dir_2 = args.save_dir + '_' +str(2)
-        cmd = "python /home/ubuntu/Whr/EAS/ALONE/src/simulator/master_QoE_4G/ALONE/train_master_gener.py " \
+        cmd = "python simulator/ALONE/train_master_gener.py " \
               "--total-epoch={total_epoch} " \
               "--seed={seed} " \
               "--save-dir={save_dir} " \

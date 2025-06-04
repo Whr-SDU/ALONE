@@ -135,6 +135,8 @@ class Pensieve(BaseAbr):
         ).argmax()
         return bit_rate, action_prob
 
+
+    #Record the experience of specialists
     def master_trace_test(self, model_path:str, test_traces: str,dest_dir:str,
               video_size_file_dir: str, qoe_number: int):
 
@@ -436,10 +438,11 @@ class Pensieve(BaseAbr):
             net_params_queues.append(mp.Queue(1))
             exp_queues.append(mp.Queue(1))
 
+
+
+        # Multi-process, accelerating training speed
         agents = []
-
         if is_gener_2:
-
             master_trace_path =  args.master_trace_path
 
             for i in range(num_agents):
@@ -530,7 +533,7 @@ class Pensieve(BaseAbr):
             po_buff = ReplayMemory(15 * TRAIN_SEQ_LEN)
             actor_val_queue = deque(maxlen = QUEUE_LEN)
 
-            #-----------------------此为正常训练步骤----------------------------------------------------
+
             while epoch < total_epoch:
 
                 if not is_master_train:
@@ -546,19 +549,15 @@ class Pensieve(BaseAbr):
                 model_actor_old.set_network_params(actor_net_params)
 
 
-                # 获取每个进程的轨迹s，a，r
                 for i in range(num_agents):
-                    # 将每个进程的数据暂时放入缓存区，需要时随机取出
                     if is_gener_2:
                         s_batch, a_batch,  Adv_batch_1, R_batch_1 ,master_s_batch, master_a_batch = exp_queues[i].get()
-
                         po_buff.push([s_batch, a_batch, Adv_batch_1,R_batch_1,master_s_batch, master_a_batch])
 
                     else:
                         s_batch, a_batch, Adv_batch_1, R_batch_1= exp_queues[i].get()
                         po_buff.push([s_batch, a_batch,  Adv_batch_1, R_batch_1])
                 for _ in range(2):
-                    #从缓冲区中随机取数据
                     if is_gener_2:
                         s_batch, a_batch,Adv_batch_1, R_batch_1,  master_s_batch_1, master_a_batch_1 = po_buff.sample(SAMPLE_LEN * 9)
 
@@ -599,12 +598,6 @@ class Pensieve(BaseAbr):
                             val_rewards.append(reward)
                             pbar.update(1)
 
-
-                    # val_rewards = [self._test(
-                    #     actor, trace, video_size_file_dir=video_size_file_dir,
-                    #     save_dir=os.path.join(save_dir, "val_logs"), is_log=is_log) for trace in val_traces]
-                    # val_mean_reward = np.mean(val_rewards)
-
                     val_log_writer.writerow(
                         [epoch, np.min(val_rewards),
                          np.percentile(val_rewards, 5), np.mean(val_rewards),
@@ -616,14 +609,9 @@ class Pensieve(BaseAbr):
                         sess,
                         os.path.join(save_dir, "model_saved", f"nn_model_ep_{epoch}.ckpt"))
                     logging.info("Model saved in file: " + save_path)
-                    #保存最新模型的位置
+
                     actor_model_queue.append(save_path)
-                    # 将最新的模型的性能存入队列
                     actor_val_queue.append(np.mean(val_rewards))
-                    # 判断是否达到初步训练的阈值 若达到阈值，则保存最后的模型路径，结束泛化者的初始训练
-                    if not is_master_train:
-                        if actor_val_queue[0] >= max(actor_val_queue)  and epoch > 40000:
-                            break
 
 
         for tmp_agent in agents:
@@ -858,9 +846,6 @@ def agent(train_seq_len: int, s_info: int, s_len: int, a_dim: int,
 
             else:
                 s_batch.append(state)
-                # print(bit_rate)
-                # action_vec = np.zeros(args.A_DIM)
-                # action_vec = np.array( [VIDEO_BIT_RATE[last_bit_rate] ,VIDEO_BIT_RATE[bit_rate] ,selection] )
                 action_vec = np.zeros(a_dim)
 
                 action_vec[bit_rate] = 1

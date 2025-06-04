@@ -152,8 +152,6 @@ def test( actor: A_NN.ActorNetwork, trace: AbrTrace,
 
 
         # reward is video quality - rebuffer penalty - smoothness
-
-
         reward = QoE_1(bit_rate, last_bit_rate, rebuf)
 
 
@@ -290,8 +288,6 @@ def train( trace_scheduler, val_traces: List[AbrTrace],
                                    bitrate_dim=A_DIM,
                                    name='QoE1')
 
-
-        # 创建一个用于更新的旧actor网络
         model_actor_old = A_NN.ActorNetwork(sess,
                                                    state_dim=[S_INFO, S_LEN],
                                                    action_dim=A_DIM,
@@ -329,11 +325,9 @@ def train( trace_scheduler, val_traces: List[AbrTrace],
         val_mean_rewards.append(val_mean_reward)
 
 
-        # 创建策略缓冲区和价值缓冲区
         po_buff = ReplayMemory(15 * TRAIN_SEQ_LEN)
 
 
-        #-----------------------此为正常训练步骤----------------------------------------------------
         while epoch < total_epoch:
 
             start_t = time.time()
@@ -350,13 +344,9 @@ def train( trace_scheduler, val_traces: List[AbrTrace],
 
             model_actor_old.set_network_params(actor_net_params)
 
-
-            # 获取每个进程的轨迹s，a，r
             for i in range(num_agents):
                 s_batch, a_batch, Adv_batch_1,R_batch_1 = exp_queues[i].get()
                 po_buff.push([s_batch, a_batch,  Adv_batch_1,R_batch_1])
-
-
 
             for i in range(num_agents):
                 s_batch, a_batch, Adv_batch_1,R_batch_1 = exp_queues[i].get()
@@ -374,8 +364,6 @@ def train( trace_scheduler, val_traces: List[AbrTrace],
 
 
 
-
-            # # 策略缓存区清零
             po_buff.clear()
             epoch += 1
             print(epoch)
@@ -546,8 +534,7 @@ def agent(train_seq_len: int, s_info: int, s_len: int, a_dim: int,
             # report experience to the coordinator
             if len(r_batch) >= train_seq_len or end_of_video:
                 epoch += 1
-                # ------------------------------回报R和优势td_batch以及广义优势估计GAE----------------------------------
-                # 更改格式，便于下面计算
+
                 s_batch_np = np.stack(s_batch, axis=0)
                 a_batch_np = np.vstack(a_batch)
                 r_batch_np = np.vstack(r_batch)

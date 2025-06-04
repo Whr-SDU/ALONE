@@ -160,24 +160,6 @@ class ActorNetwork(object):
         self._entropy_weight -= en_weight * _g * 0.1
 
 
-    # def train_3(self, inputs,pro_old, acts, Adv1,):
-    #
-    #     self.sess.run(self.actor_optimize_3, feed_dict={
-    #         self.inputs: inputs,
-    #         self.pro_old_tensor: pro_old,
-    #         self.acts: acts,
-    #         self.Adv_master: Adv1,
-    #         self.entropy_weight: self._entropy_weight,
-    #     })
-    #
-    #     en_weight = self.lr_rate
-    #     pro_old = np.clip(pro_old, ACTION_EPS, 1. - ACTION_EPS)
-    #     _H = np.mean(np.sum(-np.log(pro_old) * pro_old, axis=1))
-    #     _g = _H - H_target
-    #     self._entropy_weight -= en_weight * _g * 0.1
-    #     return self._entropy_weight
-
-
     def predict(self, inputs):
         return self.sess.run(self.out, feed_dict={
             self.inputs: inputs
