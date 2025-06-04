@@ -12,10 +12,10 @@ Anaconda is suggested to be installed to manage the test environments.
 
 ### Overview
 The reinforcement learning method corresponding to ALONE is located in the ```ALONE/src/simulator/``` directory.
-Among them, there are many auxiliary files, such as ‘’‘env.py’‘’, 
-which is the code for simulating ABR virtual playback, and ‘’‘constants.py’‘’, 
+Among them, there are many auxiliary files, such as ```env.py```, 
+which is the code for simulating ABR virtual playback, and ```constants.py```, 
 which contains various parameter settings.
-The main logic files for training the ALONE algorithm are located in the ‘’‘ALONE/’‘’ directory.
+The main logic files for training the ALONE algorithm are located in the ```ALONE/``` directory.
 
 ### Baseline algorithm
 ```Genet-main```,```merina-master```,```Netllm-master```,```pensieve-master``` are the code directories for the Genet, Merina,  Netllm and pensieve algorithms, respectively.
