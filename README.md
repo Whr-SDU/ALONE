@@ -11,12 +11,34 @@ Anaconda is suggested to be installed to manage the test environments.
 - tensorflow >=1.15
 
 ### Overview
-The main training loop for ALONE can be found in ```src/simulator/master_QoE_4G/ALONE/train_master_gener.py```,
-The corresponding reinforcement learning methods for ALONE are located in the ```src/simulator/master_QoE_4G/ALONE/``` directory.
-In addition, the directory ```src/simulator/master_QoE_4G/``` also includes the ABR virtual environment code ```env.py```, 
-the ALONE public parameter settings file ```constants.py```, and other files.
+The reinforcement learning method corresponding to ALONE is located in the ```ALONE/src/simulator/``` directory.
+Among them, there are many auxiliary files, such as ‘’‘env.py’‘’, 
+which is the code for simulating ABR virtual playback, and ‘’‘constants.py’‘’, 
+which contains various parameter settings.
+The main logic files for training the ALONE algorithm are located in the ‘’‘ALONE/’‘’ directory.
+
+### Baseline algorithm
+```Genet-main```,```merina-main```,```Netllm-main``` are the code directories for the Genet, Merina, and Netllm algorithms, respectively.
+
+### Network throughput traces
+Public bandwidth tracking is placed in this directory ```ALONE/data/```
+
 
 ### Usage
-When running ALONE, you can execute it using the ```src/driver/abr/ALONE.sh``` script, 
-where you can specify the directory for saving results using ```--save-dir```, 
-the training set using ```--train-trace-dir```, the validation set using ```--val-trace-dir```, and so on.
+When running ALONE on its own, you can execute it using the ```ALONE/src/driver/abr/ALONE.sh``` script by running 
+```
+bash ALONE.sh
+```
+In this script, you can set various training parameters, 
+such as specifying the directory to save the results in using ```--save-dir``` , 
+specifying the training set using ```--train-trace-dir``` , 
+and specifying the validation set using ```--val-trace-dir``` .
+
+Plot a example result
+```
+cd plt
+python F_1.py
+```
+
+
+
