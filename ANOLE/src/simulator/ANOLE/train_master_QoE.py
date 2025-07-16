@@ -22,7 +22,7 @@ from simulator.abr_trace import AbrTrace
 from simulator.schedulers import TestScheduler
 from simulator.utils2 import load_traces,load_trace, QoE_1,QoE_2,QoE_3,QoE_4,QoE_5
 from simulator.env import Environment
-from simulator.ALONE import A_NN
+from simulator.ANOLE import A_NN
 from simulator.constants import (
     A_DIM,
     BUFFER_NORM_FACTOR,

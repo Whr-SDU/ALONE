@@ -1,4 +1,4 @@
-# ALONE
+# ANOLE
 
 ### The environment setup
 Anaconda is suggested to be installed to manage the test environments.
@@ -11,23 +11,23 @@ Anaconda is suggested to be installed to manage the test environments.
 - tensorflow >=1.15
 
 ### Overview
-The reinforcement learning method corresponding to ALONE is located in the ```ALONE/src/simulator/``` directory.
+The reinforcement learning method corresponding to ANOLE is located in the ```ANOLE/src/simulator/``` directory.
 Among them, there are many auxiliary files, such as ```env.py```, 
 which is the code for simulating ABR virtual playback, and ```constants.py```, 
 which contains various parameter settings.
-The main logic files for training the ALONE algorithm are located in the ```ALONE/``` directory.
+The main logic files for training the ANOLE algorithm are located in the ```ANOLE/``` directory.
 
 ### Baseline algorithm
 ```Genet-main```,```merina-master```,```Netllm-master```,```pensieve-master``` are the code directories for the Genet, Merina,  Netllm and pensieve algorithms, respectively.
 
 ### Network throughput traces
-Public bandwidth tracking is placed in this directory ```ALONE/data/```
+Public bandwidth tracking is placed in this directory ```ANOLE/data/```
 
 
 ### Usage
-When running ALONE on its own, you can execute it using the ```ALONE/src/driver/abr/ALONE.sh``` script by running 
+When running ANOLE on its own, you can execute it using the ```ANOLE/src/driver/abr/ANOLE.sh``` script by running 
 ```
-bash ALONE.sh
+bash ANOLE.sh
 ```
 In this script, you can set various training parameters, 
 such as specifying the directory to save the results in using ```--save-dir``` , 

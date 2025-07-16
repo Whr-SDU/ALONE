@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib.patches import Patch
 # ========== 自定义数据 ==========
 group_names = ['Video-On-Demand', 'Live Streaming', 'Video Analytic']
-condition_names = ['MPC', 'Pensieve', 'Merina','Netllm','Genet','ALONE']
+condition_names = ['MPC', 'Pensieve', 'Merina','Netllm','Genet','ANOLE']
 y_legend = ['QoE-lin','QoE-liv','QoE-ana']
 colors = ['#bbdbb3', '#91CCc0', '#f7ac53', '#9998ff', '#7fabd1', '#db7272']
 hatch_patterns = ['/', '\\', '-', '.', 'x', '+']

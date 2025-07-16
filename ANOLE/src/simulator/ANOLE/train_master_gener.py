@@ -10,7 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../s
 from sklearn.cluster import KMeans
 from simulator.save_cmd import set_seed, save_args
 import subprocess
-from simulator.ALONE.master_gener import Pensieve
+from simulator.ANOLE.master_gener import Pensieve
 from simulator.schedulers import (
     UDRTrainScheduler,
 )
@@ -30,7 +30,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '0,1,2,3'
 # Saved directory for throughput clustering
 output_base_dir = "/home/ubuntu/Whr/Load_trace/Cluster_6/"
 # Experience pool
-master_save_dir="/home/ubuntu/Whr/EAS/ALONE/results_ALONE/4/master/"
+master_save_dir="/home/ubuntu/Whr/EAS/ANOLE/results_ANOLE/4/master/"
 
 
 
@@ -198,7 +198,7 @@ def main():
         for kk in range(zhonglei):
             ma_save_dir = master_save_dir + str(kk+1)
             master_train_trace_dir = output_base_dir + str(kk+1)
-            cmd = "python simulator/ALONE/train_master_QoE.py " \
+            cmd = "python simulator/ANOLE/train_master_QoE.py " \
                   "--total-epoch={total_epoch} " \
                   "--seed={seed} " \
                   "--save-dir={save_dir} " \
@@ -251,7 +251,7 @@ def main():
     if not args.master_train :
         time_start = time.time()
         save_dir_2 = args.save_dir + '_' +str(2)
-        cmd = "python simulator/ALONE/train_master_gener.py " \
+        cmd = "python simulator/ANOLE/train_master_gener.py " \
               "--total-epoch={total_epoch} " \
               "--seed={seed} " \
               "--save-dir={save_dir} " \
