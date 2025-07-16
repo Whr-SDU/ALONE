@@ -10,7 +10,7 @@ x_labels = ['0-7', '7-14', '14-21', '21-28', '28-35', '>35']
 # schemes_show 和 schemes_label 需要你自己定义好
 # 例子：
 
-schemes_label = ['RobustMPC', 'Pensieve', 'Merina', 'Netllm', 'Genet', 'ANOLE']
+schemes_label = ['MPC', 'Pensieve', 'Merina', 'Netllm', 'Genet', 'ANOLE']
 
 # 四组数据
 persent= [[33, 47, 77, 73, 80, 83], [-33, 67, 77, 78, 80, 70],
